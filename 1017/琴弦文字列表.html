@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>琴弦文字列表</title>
+	<style>
+		*{margin: 0;padding: 0;}
+		ul,li{list-style: none;}
+		a{text-decoration: none;}
+		
+		#list{width: 302px;margin: 50px auto; }
+		#list li{height: 30px;font-size: 12px;line-height: 30px;font-family: "宋体";border: 1px solid #000;}
+		#list li>a{color: #000;position: relative;}
+		#list li>a>span{width: 12px;height: 12px;line-height: 12px;}
+	</style>
+</head>
+<body>
+	<ul id="list">
+		<li><a href="###">列表文字列表文字列表文字列表文字列表文字1</a></li>
+		<li><a href="###">列表文字列表文字列表文字列表文字列表文字2</a></li>
+		<li><a href="###">列表文字列表文字列表文字列表文字列表文字3</a></li>
+		<li><a href="###">列表文字列表文字列表文字列表文字列表文字4</a></li>
+		<li><a href="###">列表文字列表文字列表文字列表文字列表文字5s</a></li>
+	</ul>
+	
+	<script src="tween.js"></script>
+	<script>
+		window.onload = function(){
+			var oList = document.getElementById("list");
+			var aLi = oList.getElementsByTagName("a");
+			var iLiheight = oList.getElementsByTagName("li")[0].offsetHeight;
+			for(var i=0;i<aLi.length;i++){
+				var sHtml = aLi[i].innerHTML;
+				aLi[i].innerHTML = "";
+				//拆分每个字
+				for(var j=0;j<sHtml.length;j++){
+					aLi[i].innerHTML += "<span>"+sHtml[j]+"</span>"
+				}
+				//获取每个字元素
+				var aSpan = aLi[i].children;
+
+				for(var j=0;j<aSpan.length;j++){			//循环每个字设置相应位置
+					aSpan[j].style.left = aSpan[j].offsetLeft+"px";
+					aSpan[j].style.top = aSpan[j].offsetTop+"px";
+					aSpan[j].startTop = aSpan[j].offsetTop;
+				}
+
+				for(var j=0;j<aSpan.length;j++){			
+					aSpan[j].style.position = "absolute";
+					
+					(function(aSpan,nub2){
+						var iStart = 0;
+
+						var iSpanh = aSpan[0].offsetHeight;
+						aSpan[nub2].onmouseover = function(ev){
+							iStart = ev.clientY;
+						}
+						aSpan[nub2].onmousemove = function(ev){
+							// var ev = ev||event;
+							var iDis = ev.clientY-iStart;
+							var iNub = iDis>0 ? 1 : -1;
+							//限制字移动范围
+							if(this.startTop + iDis >= 0 && this.startTop + iDis < (iLiheight-iSpanh)){
+								//this.style.top = this.startTop + iDis + "px";
+								for(var j = 0;j<aSpan.length;j++){
+									//判断差值和位移值 差值大于位移值的话才开始执行
+									if(Math.abs(iDis) > Math.abs(nub2-j)){
+										aSpan[j].style.top = aSpan[j].startTop + (Math.abs(iDis) - Math.abs(nub2-j)) * iNub +"px";
+									}
+									else{
+										aSpan[j].style.top = aSpan[j].startTop +"px";
+									}
+								}
+							}
+						}
+						aSpan[nub2].onmouseout = function(ev){
+							//this.style.top = this.startTop + "px";
+							for(var j = 0;j<aSpan.length;j++){
+									//aSpan[j].style.top = this.startTop + "px";
+									starMove(aSpan[j],{top:aSpan[j].startTop},500,"elasticOut");
+								}
+
+						}
+					})(aSpan,j);
+				}
+			}
+		}
+	</script>
+</body>
+</html>
