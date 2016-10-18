@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{margin: 0;padding: 0;}
+		ul,li{list-style: none;}
+		a{text-decoration: none;}
+		
+		.nav{margin: 50px auto;}
+		.nav li{float: left; padding: 0 10px;perspective:100px;-webkit-perspective:100px;}
+		.nav li a{float: left;position: relative;font: 14px/20px "宋体";-webkit-transform-style:preserve-3d; transform-origin: 50% 50% -10px;transition: all .5s;}
+		.nav li a:hover{transform: rotateX(90deg);}
+		.nav li a span{float: left;width: 60px;text-align: center;backface-visibility: hidden;}
+		.nav li a span:nth-of-type(1){position: absolute;left: 0;bottom: -20px;transform-origin: top;transform: rotateX(-90deg);}
+
+	</style>
+</head>
+<body>
+	<ul class="nav">
+		<li>
+			<a href="###">
+				<span>选项一</span>
+				<span>选项1</span>
+			</a>
+		</li>
+		<li>
+			<a href="###">
+				<span>选项二</span>
+				<span>选项2</span>
+			</a>
+		</li>
+		<li>
+			<a href="###">
+				<span>选项三</span>
+				<span>选项3</span>
+			</a>
+		</li>
+		<li>
+			<a href="###">
+				<span>选项四</span>
+				<span>选项4</span>
+			</a>
+		</li>
+		<li>
+			<a href="###">
+				<span>选项五</span>
+				<span>选项5</span>
+			</a>
+		</li>
+	</ul>
+</body>
+</html>
